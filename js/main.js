@@ -13,6 +13,9 @@ const config = {
         preload: preload,
         create: create,
         update: update
+    },
+    audio: {
+        disableWebAudio: true
     }
 };
 
@@ -26,9 +29,15 @@ const game = new Phaser.Game(config);
 
 function preload()
 {
+    // Music
+    this.load.audio('theme', [
+        'assets/audio/party troll.mp3'
+    ]);
+
     // Background Image
     this.load.image("background", "../assets/2 Background/Background.png");
     this.load.image("tag", "../assets/2 Background/tag.png");
+
     // Floor Tiles
     this.load.image("top-left-corner", "../assets/1 Tiles/IndustrialTile_04.png");
     this.load.image("top-center-floor", "../assets/1 Tiles/IndustrialTile_05.png");
@@ -39,6 +48,7 @@ function preload()
     this.load.image("center-floor", "../assets/1 Tiles/IndustrialTile_14.png");
     this.load.image("bottom-left-corner", "../assets/1 Tiles/IndustrialTile_22.png");
     this.load.image("bottom-right-corner", "../assets/1 Tiles/IndustrialTile_24.png");
+    this.load.image("full-platform", "../assets/1 Tiles/IndustrialTile_25.png");
     this.load.image("wall", "../assets/1 Tiles/IndustrialTile_02.png");
     this.load.image("deathBlock", "../assets/1 Tiles/IndustrialTile_09.png");
     
@@ -60,9 +70,14 @@ function create()
     // Background Image
     this.add.image(750, 350, "background").setScale(4);
 
+    var music = this.sound.add('theme');
+
+    music.play();
+
     //Groups
     platforms = this.physics.add.staticGroup();
     walls = this.physics.add.staticGroup();
+    floors = this.physics.add.staticGroup();
     deathBlocks = this.physics.add.staticGroup();
     door1 = this.physics.add.staticGroup();
     bombs = this.physics.add.group();
@@ -92,24 +107,50 @@ function create()
     this.add.image(63, 745, "tag").setScale(.45);
 
     //First Platform
-    this.add.image(207, 670, "top-center-floor");
-    this.add.image(239, 670, "top-center-floor");
-    platforms.create(271, 670, "top-center-floor");
-    this.add.image(303, 670, "top-center-floor");
+    this.add.image(207, 670, "full-platform");
+    this.add.image(239, 670, "full-platform");
+    platforms.create(271, 670, "full-platform");
+    this.add.image(303, 670, "full-platform");
 
     // Second Platform
-    this.add.image(399, 700, "top-center-floor");
-    platforms.create(431, 700, "top-center-floor");
-    platforms.create(463, 700, "top-center-floor");
-    platforms.create(495, 700, "top-center-floor");
-    door1.create(463, 652, "door");
+    this.add.image(399, 700, "full-platform");
+    platforms.create(431, 700, "full-platform");
+    platforms.create(463, 700, "full-platform");
+    platforms.create(495, 700, "full-platform");
+    // door1.create(463, 652, "door");
 
+    // Third Platform
+    floor1();
+    platforms.create(879, 760, "full-platform");
+    platforms.create(911, 760, "full-platform");
+    this.add.image(911, 730, "full-platform");
+    platforms.create(911, 700, "full-platform");
+    platforms.create(911, 670, "full-platform");
+    platforms.create(911, 640, "full-platform");
+    platforms.create(911, 610, "full-platform");
+    
 
+    // Fourth Platform
+    platforms.create(623, 700, "full-platform");
+    platforms.create(655, 700, "full-platform");
+    platforms.create(687, 700, "full-platform");
+    this.add.image(719, 700, "full-platform");
+    this.add.image(751, 700, "full-platform");
+    platforms.create(783, 700, "full-platform");
+    platforms.create(815, 700, "full-platform");
+    platforms.create(623, 670, "full-platform");
+    this.add.image(591, 670, "full-platform");
+    this.add.image(591, 640, "full-platform");
+    platforms.create(591, 610, "full-platform");
+    platforms.create(559, 610, "full-platform");
 
-    this.add.image(367, 610, "top-center-floor");
-    this.add.image(399, 610, "top-center-floor");
-    platforms.create(431, 610, "top-center-floor");
+    // Fifth Platform
+    this.add.image(495, 610, "full-platform");
 
+    // Sixth Platform
+    this.add.image(367, 610, "full-platform");
+    this.add.image(399, 610, "full-platform");
+    platforms.create(431, 610, "full-platform");
 
     // Player
     player = this.physics.add.sprite(45, 650, 'player').setScale(1);
@@ -141,8 +182,8 @@ function create()
     this.physics.add.collider(bombs, platforms);
     this.physics.add.collider(player, bombs, touchBomb, null, this);
 
-    // Set camera zoom set to 2
-    // this.cameras.main.zoom = 2;
+    // Set camera zoom set to 3
+    // this.cameras.main.zoom = 3;
     // this.cameras.main.setBounds(0, 0, 1600, 800, false);
 }
 
@@ -201,7 +242,7 @@ function update() {
 
 function blankWalls() {
     var y = 790;
-    for(var i = 0; i < 11; i++) {
+    for(var i = 0; i < 9; i++) {
         y = y - 30;
         var x = -17;
         for(var j = 0; j < 50; j++) {
@@ -209,6 +250,14 @@ function blankWalls() {
             walls.create(x, y, "center-floor");
         };
     };
+}
+
+function floor1() {
+    var x = 559;
+    for(var i = 0; i < 10; i++) {
+        x = x + 32;
+        platforms.create(x, 790, "full-platform");
+    }; 
 }
 
 function bottomDeath() {

@@ -175,6 +175,7 @@ function create()
 
     // 3rd Platform
     floor1();
+    platforms.create(623, 789.9, "full-platform");
     platforms.create(879, 760, "full-platform");
     platforms.create(911, 760, "full-platform");
     pf3DoorBlock.create(943, 759.9, "full-platform"); //Door Block For Door Platform 3
@@ -424,7 +425,7 @@ function create()
     player = this.physics.add.sprite(45, 650, 'player').setScale(1);
     player.body.setGravityY(1000)
     player.setCollideWorldBounds(true);
-    this.physics.add.collider(player, platforms);
+    this.physics.add.collider(player, platforms, realFloor);
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('player-run-backwards', { start: 0, end: 5 }),
@@ -445,14 +446,14 @@ function create()
         repeat: -1
     });
 
-    this.physics.add.collider(player, spawnDoorBlock, moveSp, null, this);
-    this.physics.add.collider(player, spawnDoorBlockCancel, moveSpCancel, null, this);
-    this.physics.add.collider(player, pf3DoorBlock, move3, null, this);
-    this.physics.add.collider(player, pf3DoorBlockCancel, move3Cancel, null, this);
-    this.physics.add.collider(player, pf19DoorBlock, move19, null, this);
-    this.physics.add.collider(player, pf19DoorBlockCancel, move19Cancel, null, this);
-    this.physics.add.collider(player, pf20DoorBlock, move20, null, this);
-    this.physics.add.collider(player, pf20DoorBlockCancel, move20Cancel, null, this);
+    this.physics.add.collider(player, spawnDoorBlock, moveSp, realFloor, null, this);
+    this.physics.add.collider(player, spawnDoorBlockCancel, moveSpCancel, realFloor, null, this);
+    this.physics.add.collider(player, pf3DoorBlock, move3, realFloor, null, this);
+    this.physics.add.collider(player, pf3DoorBlockCancel, move3Cancel, realFloor, null, this);
+    this.physics.add.collider(player, pf19DoorBlock, move19, realFloor, null, this);
+    this.physics.add.collider(player, pf19DoorBlockCancel, move19Cancel, realFloor, null, this);
+    this.physics.add.collider(player, pf20DoorBlock, move20, realFloor, null, this);
+    this.physics.add.collider(player, pf20DoorBlockCancel, move20Cancel, realFloor, null, this);
     this.physics.add.collider(player, jumper, jumpUp, null, this);
     this.physics.add.collider(player, deathBlocks, touchDeath, null, this);
     this.physics.add.collider(player, ghosts, touchghost, null, this);
@@ -528,6 +529,10 @@ function blankWalls() {
             walls.create(x, y, "center-floor");
         };
     };
+}
+
+function realFloor(player, platforms) {
+    platforms.setTint(0xff0000);
 }
 
 function floor1() {

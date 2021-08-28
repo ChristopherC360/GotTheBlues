@@ -5,7 +5,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 50 },
             debug: false
         }
     },
@@ -416,13 +416,13 @@ function create()
     this.add.image(1392, 160, "full-platform");
     this.add.image(1424, 160, "full-platform");
     this.add.image(1456, 160, "full-platform");
-    pf20DoorBlockCancel.create(1551, 159.9, "full-platform");
-    pf20DoorBlock.create(1584, 159.9, "full-platform");
+    pf20DoorBlockCancel.create(1551, 160, "full-platform");
+    pf20DoorBlock.create(1584, 160, "full-platform");
     this.add.image(1584, 112, "door");
 
     // Player
     player = this.physics.add.sprite(45, 650, 'player').setScale(1);
-    player.body.setGravityY(800)
+    player.body.setGravityY(1000)
     player.setCollideWorldBounds(true);
     this.physics.add.collider(player, platforms);
     this.anims.create({
@@ -479,7 +479,7 @@ function update() {
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
         var randomNum = Math.random();
         console.log(randomNum);
-        if(randomNum > .75) {
+        if(randomNum > .5) {
             var ghost = ghosts.create(x, 16, 'ghost');
             ghost.setBounce(1);
             ghost.setCollideWorldBounds(true);

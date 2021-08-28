@@ -159,7 +159,7 @@ function create()
     this.add.image(111, 640, "bottom-left-wall");
     this.add.image(143, 640, "bottom-right-wall");
     this.add.image(127, 625, "screen").setScale(1.1);
-    wallText = this.add.text(100, 598, `Doors can \nbe opened \nwith the \ndown \narrow.`, { fontSize: "10px", fill: "#fff"});
+    wallText = this.add.text(100, 598, "Doors can \nbe opened \nwith the \ndown \narrow.", { fontSize: "10px", fill: "#fff"});
 
     // 1st Platform
     this.add.image(207, 700, "full-platform");
@@ -271,7 +271,7 @@ function create()
     this.add.image(943, 370, "bottom-left-wall");
     this.add.image(975, 370, "bottom-right-wall");
     this.add.image(959, 355, "screen").setScale(1.1);
-    this.add.text(933, 335, `Jump on \nme, I \ngo boing!`, { fontSize: "10px", fill: "#fff"});
+    this.add.text(933, 335, "Jump on \nme, I \ngo boing!", { fontSize: "10px", fill: "#fff"});
 
     // 12th Platform
     deathBlocks.create(687, 550, "deathBlock");

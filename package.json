@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node_modules/.bin/http-server -a localhost -p 8080 -c-1",
         "imagemin": "imagemin assets/* -o dist/assets",
-        "usemin": "usemin index.html -d dist --htmlmin -o dist/index.html",
+        "usemin": "usemin game.html -d dist --htmlmin -o dist/game.html && usemin index.html -d dist --htmlmin -o dist/index.html",
         "clean": "rimraf dist",
         "build": "npm run clean && npm run imagemin && npm run usemin",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,6 +14,7 @@
     "author": "Christopher Crawford",
     "license": "ISC",
     "dependencies": {
+        "bootstrap": "^5.1.0",
         "http-server": "^13.0.1",
         "phaser": "^3.55.2"
     },

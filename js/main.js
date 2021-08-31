@@ -180,7 +180,8 @@ function create()
     platforms.create(911, 760, "full-platform");
     pf3DoorBlock.create(943, 759.9, "full-platform"); //Door Block For Door Platform 3
     pf3DoorBlockCancel.create(975, 759.9, "full-platform"); //Door Block Cancel For Door Platform 3
-    platforms.create(911, 730, "full-platform");
+    platforms.create(914, 730, "full-platform");
+    this.add.image(911, 730, "full-platform");
     this.add.image(943, 712, "door");
     platforms.create(911, 700, "full-platform");
     platforms.create(911, 670, "full-platform");
@@ -514,6 +515,11 @@ function update() {
     }
 
     if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.setVelocityY(-400);
+    }
+
+    if (cursors.space.isDown && player.body.touching.down)
     {
         player.setVelocityY(-400);
     }
